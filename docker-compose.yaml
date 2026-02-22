@@ -1,0 +1,28 @@
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - 80:4200
+
+  backend:
+    depends_on:
+      - database
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://database:5432/fullstack_db
+      - SPRING_DATASOURCE_USERNAME=username
+      - SPRING_DATASOURCE_PASSWORD=password
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    build: ./backend
+    ports:
+      - 8080:8080
+
+  database:
+    image: 'postgres:18.2-alpine'
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: fullstack_db
+    env_file:
+      - .env
+    volumes:
+      - ${PWD}/db-data/:/var/lib/postgresql/data/
