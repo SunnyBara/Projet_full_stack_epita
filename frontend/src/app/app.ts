@@ -1,5 +1,5 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import {Component, signal} from '@angular/core';
+import {RouterOutlet} from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -11,11 +11,11 @@ import { RouterOutlet } from '@angular/router';
 export class App {
   protected readonly title = signal('frontend');
 
-  protected readonly text = signal("")
+  protected readonly text = signal('')
 
   async onButtonClick() {
-    const result = await fetch("http://localhost:8080")
-    console.log(result.url)
+    const result = await fetch('/api/')
+    console.log(result.url);
     this.text.set(await result.text())
   }
 }
